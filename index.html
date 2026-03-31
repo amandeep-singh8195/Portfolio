@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amandeep Singh — Web Designer & Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f7f5;
+      --light-grey: #ececea;
+      --mid-grey: #b0b0ac;
+      --dark-grey: #3a3a38;
+      --black: #111110;
+      --accent: #222220;
+      --accent2: #c8a97a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--black);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--black);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--black);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.18s ease, width 0.2s, height 0.2s;
+    }
+    body:hover .cursor { opacity: 1; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 28px 60px;
+      background: rgba(247,247,245,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--light-grey);
+      animation: fadeDown 0.8s ease both;
+    }
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:none; } }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--black);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent2); }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark-grey);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent2);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 60px 60px;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-line {
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%;
+      height: 100%;
+      background: var(--light-grey);
+      z-index: 0;
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .hero-left { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      border: 1px solid var(--accent2);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--black);
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent2);
+    }
+    .hero-desc {
+      margin-top: 24px;
+      font-size: 1.05rem;
+      color: var(--dark-grey);
+      line-height: 1.7;
+      max-width: 440px;
+      font-weight: 300;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 16px; margin-top: 40px;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+      padding: 14px 34px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--black);
+      padding: 14px 34px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1.5px solid var(--black);
+      letter-spacing: 0.03em;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
+
+    .hero-right {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .hero-img-wrap {
+      width: 340px; height: 420px;
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--light-grey);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .hero-img-placeholder {
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--light-grey);
+      letter-spacing: -4px;
+      user-select: none;
+    }
+    .hero-img-badge {
+      position: absolute;
+      bottom: 20px; right: -16px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 100px;
+      letter-spacing: 0.06em;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 28px;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--mid-grey);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+
+    /* SECTION COMMON */
+    section { padding: 100px 60px; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--black);
+      letter-spacing: -1px;
+      margin-bottom: 48px;
+    }
+
+    /* SERVICES */
+    #services { background: var(--white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--off-white);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card:hover { background: var(--black); }
+    .service-card:hover .service-title,
+    .service-card:hover .service-desc,
+    .service-card:hover .service-num { color: var(--white); }
+    .service-card:hover .service-icon { border-color: var(--accent2); color: var(--accent2); }
+
+    .service-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--light-grey);
+      line-height: 1;
+      margin-bottom: 24px;
+      transition: color 0.3s;
+    }
+    .service-icon {
+      width: 52px; height: 52px;
+      border: 1.5px solid var(--black);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .service-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--dark-grey);
+      line-height: 1.7;
+      font-weight: 300;
+      transition: color 0.3s;
+    }
+
+    /* SKILLS */
+    #skills { background: var(--off-white); }
+    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .skills-text p {
+      font-size: 1rem;
+      color: var(--dark-grey);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .skill-bars { display: flex; flex-direction: column; gap: 24px; }
+    .skill-bar-item {}
+    .skill-bar-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .skill-bar-name { font-size: 0.9rem; font-weight: 500; }
+    .skill-bar-pct { font-size: 0.85rem; color: var(--mid-grey); }
+    .skill-bar-track {
+      height: 4px; background: var(--light-grey); border-radius: 100px; overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%; background: var(--black); border-radius: 100px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* PORTFOLIO */
+    #portfolio { background: var(--white); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .portfolio-card {
+      position: relative; overflow: hidden;
+      border-radius: 8px;
+      background: var(--off-white);
+      border: 1px solid var(--light-grey);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.1); }
+    .portfolio-card-img {
+      height: 200px;
+      background: var(--light-grey);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      transition: background 0.3s;
+    }
+    .portfolio-card:hover .portfolio-card-img { background: var(--black); }
+    .portfolio-card-body { padding: 24px; }
+    .portfolio-card-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .portfolio-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+    .portfolio-card-desc { font-size: 0.85rem; color: var(--dark-grey); line-height: 1.6; font-weight: 300; }
+
+    /* PRICING */
+    #pricing { background: var(--off-white); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .pricing-card {
+      background: var(--white);
+      border: 1px solid var(--light-grey);
+      border-radius: 12px;
+      padding: 44px 36px;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.08); }
+    .pricing-card.featured {
+      background: var(--black);
+      border-color: var(--black);
+    }
+    .pricing-card.featured .pricing-plan,
+    .pricing-card.featured .pricing-price,
+    .pricing-card.featured .pricing-desc,
+    .pricing-card.featured .pricing-features li { color: var(--white); }
+    .pricing-card.featured .pricing-features li::before { background: var(--accent2); }
+    .pricing-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--accent2); color: var(--white);
+      font-size: 0.72rem; font-weight: 600;
+      padding: 5px 16px; border-radius: 100px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .pricing-plan { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid-grey); font-weight: 500; margin-bottom: 16px; }
+    .pricing-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 900; color: var(--black);
+      line-height: 1; margin-bottom: 4px;
+    }
+    .pricing-price span { font-size: 1rem; font-weight: 400; font-family: 'DM Sans', sans-serif; color: var(--mid-grey); }
+    .pricing-desc { font-size: 0.88rem; color: var(--dark-grey); margin: 16px 0 28px; line-height: 1.6; }
+    .pricing-features { list-style: none; margin-bottom: 36px; display: flex; flex-direction: column; gap: 12px; }
+    .pricing-features li { font-size: 0.88rem; color: var(--dark-grey); padding-left: 20px; position: relative; }
+    .pricing-features li::before {
+      content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      width: 7px; height: 7px; border-radius: 50%; background: var(--black);
+    }
+    .pricing-btn {
+      display: block; text-align: center;
+      padding: 14px; border-radius: 100px;
+      font-size: 0.88rem; font-weight: 500;
+      text-decoration: none;
+      border: 1.5px solid var(--black);
+      color: var(--black);
+      transition: background 0.2s, color 0.2s;
+    }
+    .pricing-btn:hover { background: var(--black); color: var(--white); }
+    .pricing-card.featured .pricing-btn {
+      background: var(--accent2); color: var(--white); border-color: var(--accent2);
+    }
+    .pricing-card.featured .pricing-btn:hover { background: var(--white); color: var(--black); }
+
+    /* CONTACT */
+    #contact { background: var(--black); }
+    #contact .section-title { color: var(--white); }
+    #contact .section-label { color: var(--accent2); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-info p { color: var(--mid-grey); font-size: 1rem; line-height: 1.8; font-weight: 300; margin-bottom: 40px; }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .contact-item { display: flex; align-items: center; gap: 16px; color: var(--white); font-size: 0.9rem; }
+    .contact-item-icon {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid-grey); }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 14px 18px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent2); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select option { background: var(--black); }
+    .btn-send {
+      background: var(--accent2); color: var(--white);
+      border: none; padding: 16px 40px;
+      border-radius: 100px; font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: opacity 0.2s, transform 0.2s;
+      letter-spacing: 0.03em;
+      align-self: flex-start;
+    }
+    .btn-send:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--black); color: var(--mid-grey);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 32px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 36px; right: 36px;
+      background: var(--black); color: var(--white);
+      padding: 16px 28px; border-radius: 100px;
+      font-size: 0.88rem; z-index: 9999;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      border-left: 3px solid var(--accent2);
+    }
+    .toast.show { opacity: 1; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .nav-links { gap: 20px; }
+      #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+      .hero-bg-line { display: none; }
+      .hero-right { display: none; }
+      section { padding: 70px 24px; }
+      .services-grid, .portfolio-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .skills-layout, .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Aman<span>deep</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#portfolio">Work</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-line"></div>
+    <div class="hero-left">
+      <div class="hero-tag">✦ Available for Freelance</div>
+      <h1 class="hero-name">Amandeep<br><em>Singh</em></h1>
+      <p class="hero-desc">
+        I craft clean, modern websites and web apps that not only look stunning — they convert visitors into clients. Based in Punjab, working worldwide.
+      </p>
+      <div class="hero-btns">
+        <a href="#portfolio" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-outline">Hire Me</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <div class="hero-img-placeholder">AS</div>
+        <div class="hero-img-badge">Open to Work ✦</div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Years Exp.</div></div>
+        <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Projects</div></div>
+        <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Happy Clients</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-label reveal">What I Offer</div>
+    <div class="section-title reveal">Services That<br>Deliver Results</div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <div class="service-icon">🎨</div>
+        <div class="service-title">UI/UX Design</div>
+        <p class="service-desc">Beautiful, user-friendly interfaces designed in Figma. From wireframes to pixel-perfect designs that users love.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">02</div>
+        <div class="service-icon">💻</div>
+        <div class="service-title">Web Development</div>
+        <p class="service-desc">Fast, responsive websites using HTML, CSS, JavaScript & modern frameworks. Mobile-first approach always.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">03</div>
+        <div class="service-icon">🛒</div>
+        <div class="service-title">E-Commerce Sites</div>
+        <p class="service-desc">Complete online stores with payment gateways, product listings, and admin dashboards ready to sell.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <div class="service-icon">⚡</div>
+        <div class="service-title">Performance Optimization</div>
+        <p class="service-desc">Speed up your existing website. Better Core Web Vitals, faster load times, higher Google rankings.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">05</div>
+        <div class="service-icon">📱</div>
+        <div class="service-title">Landing Pages</div>
+        <p class="service-desc">High-converting landing pages for your product, service, or campaign. Designed to maximize leads.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">06</div>
+        <div class="service-icon">🔧</div>
+        <div class="service-title">Website Maintenance</div>
+        <p class="service-desc">Monthly maintenance plans — updates, security, backups, and support so you can focus on your business.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label reveal">My Expertise</div>
+    <div class="section-title reveal">Skills & Tools</div>
+    <div class="skills-layout">
+      <div class="skills-text reveal">
+        <p>With over 3 years of hands-on experience in web design and development, I've helped startups and businesses build a strong digital presence.</p>
+        <p>I believe great design is invisible — it just works. My approach combines clean aesthetics with solid technical execution.</p>
+        <p>Whether you need a portfolio, business site, or complex web app — I've got you covered from concept to deployment.</p>
+      </div>
+      <div class="skill-bars reveal">
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">HTML / CSS</span><span class="skill-bar-pct">95%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">JavaScript</span><span class="skill-bar-pct">85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">React.js</span><span class="skill-bar-pct">80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">Figma / UI Design</span><span class="skill-bar-pct">88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">WordPress / CMS</span><span class="skill-bar-pct">78%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">Node.js / Backend</span><span class="skill-bar-pct">70%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="section-label reveal">Recent Work</div>
+    <div class="section-title reveal">Projects I'm<br>Proud Of</div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">🛍️</div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-card-tag">E-Commerce</div>
+          <div class="portfolio-card-title">Fashion Store — ShopKart</div>
+          <p class="portfolio-card-desc">Full e-commerce site with cart, payments & admin panel built for a local clothing brand.</p>
+        </div>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">🏥</div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-card-tag">Business Website</div>
+          <div class="portfolio-card-title">Clinic Website — MediCare</div>
+          <p class="portfolio-card-desc">Appointment booking, doctor profiles and responsive design for a healthcare clinic.</p>
+        </div>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">🎓</div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-card-tag">Landing Page</div>
+          <div class="portfolio-card-title">EdTech Landing — LearnFast</div>
+          <p class="portfolio-card-desc">High-converting landing page for an online course platform. 40% conversion boost.</p>
+        </div>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">🍕</div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-card-tag">Restaurant</div>
+          <div class="portfolio-card-title">Food Ordering — TastyBite</div>
+          <p class="portfolio-card-desc">Online menu and food ordering system for a local restaurant in Ludhiana.</p>
+        </div>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">📊</div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-card-tag">Dashboard</div>
+          <div class="portfolio-card-title">Analytics Dashboard — DataView</div>
+          <p class="portfolio-card-desc">Custom admin dashboard with charts, user management and real-time data.</p>
+        </div>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-card-img">🏠</div>
+        <div class="portfolio-card-body">
+          <div class="portfolio-card-tag">Real Estate</div>
+          <div class="portfolio-card-title">Property Listing — PrimeHomes</div>
+          <p class="portfolio-card-desc">Property search, filter, map integration and enquiry forms for a real estate agency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="section-label reveal">Transparent Pricing</div>
+    <div class="section-title reveal">Simple, Fair Packages</div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-plan">Starter</div>
+        <div class="pricing-price">₹5,000 <span>/ project</span></div>
+        <p class="pricing-desc">Perfect for individuals needing a clean online presence.</p>
+        <ul class="pricing-features">
+          <li>1–3 Page Website</li>
+          <li>Mobile Responsive</li>
+          <li>Contact Form</li>
+          <li>Basic SEO Setup</li>
+          <li>7 Days Delivery</li>
+        </ul>
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-plan">Professional</div>
+        <div class="pricing-price">₹15,000 <span>/ project</span></div>
+        <p class="pricing-desc">Complete business website with everything you need.</p>
+        <ul class="pricing-features">
+          <li>5–8 Page Website</li>
+          <li>Custom Design in Figma</li>
+          <li>CMS / Admin Panel</li>
+          <li>Advanced SEO</li>
+          <li>WhatsApp Integration</li>
+          <li>14 Days Delivery</li>
+        </ul>
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-plan">E-Commerce</div>
+        <div class="pricing-price">₹30,000 <span>/ project</span></div>
+        <p class="pricing-desc">Full online store ready to sell products immediately.</p>
+        <ul class="pricing-features">
+          <li>Unlimited Products</li>
+          <li>Payment Gateway</li>
+          <li>Order Management</li>
+          <li>Customer Accounts</li>
+          <li>1 Month Free Support</li>
+          <li>21 Days Delivery</li>
+        </ul>
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label reveal">Let's Work Together</div>
+    <div class="section-title reveal">Start Your<br>Project Today</div>
+    <div class="contact-layout">
+      <div class="contact-info reveal">
+        <p>Got a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 24 hours.</p>
+        <div class="contact-details">
+          <div class="contact-item"><div class="contact-item-icon">📧</div>amandeep@email.com</div>
+          <div class="contact-item"><div class="contact-item-icon">📱</div>+91 98XXX XXXXX</div>
+          <div class="contact-item"><div class="contact-item-icon">📍</div>Ludhiana, Punjab, India</div>
+          <div class="contact-item"><div class="contact-item-icon">⏱️</div>Response within 24 hours</div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="fname" placeholder="Raj Kumar" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="femail" placeholder="raj@example.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Service Needed</label>
+          <select id="fservice">
+            <option value="">Select a service...</option>
+            <option>UI/UX Design</option>
+            <option>Web Development</option>
+            <option>E-Commerce Store</option>
+            <option>Landing Page</option>
+            <option>Website Maintenance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Budget</label>
+          <select id="fbudget">
+            <option value="">Select budget range...</option>
+            <option>Under ₹5,000</option>
+            <option>₹5,000 – ₹15,000</option>
+            <option>₹15,000 – ₹30,000</option>
+            <option>₹30,000+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Project Details</label>
+          <textarea id="fmsg" placeholder="Tell me about your project, goals, and timeline..."></textarea>
+        </div>
+        <button class="btn-send" onclick="sendMessage()">Send Message →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 Amandeep Singh. All rights reserved.</span>
+    <span>Built with ♥ in Ludhiana, Punjab</span>
+    <span>Made by <a href="#">Amandeep Singh</a></span>
+  </footer>
+
+  <div class="toast" id="toast">✦ Message sent! I'll reply within 24 hours.</div>
+
+  <script>
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+      cursor.style.transform = `translate(${mx-5}px, ${my-5}px)`;
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.transform = `translate(${rx-18}px, ${ry-18}px)`;
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+
+    // Scroll Reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Skill Bars
+    const bars = document.querySelectorAll('.skill-bar-fill');
+    const barObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.width = e.target.dataset.width + '%';
+          barObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    bars.forEach(b => barObserver.observe(b));
+
+    // Contact Form
+    function sendMessage() {
+      const name = document.getElementById('fname').value.trim();
+      const email = document.getElementById('femail').value.trim();
+      const msg = document.getElementById('fmsg').value.trim();
+      if (!name || !email || !msg) { alert('Please fill in all required fields.'); return; }
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+      document.getElementById('fname').value = '';
+      document.getElementById('femail').value = '';
+      document.getElementById('fmsg').value = '';
+      document.getElementById('fservice').value = '';
+      document.getElementById('fbudget').value = '';
+    }
+  </script>
+</body>
+</html>
